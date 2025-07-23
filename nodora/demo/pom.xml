@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Spring Boot projeleri için ana (parent) POM. -->
+	<!-- Bu, tüm Spring Boot bağımlılıklarının sürümlerini otomatik olarak yönetir. -->
+	<!-- Eğer 3.3.0 sürümünde hala sorun yaşarsanız (özellikle "not found" hatası), -->
+	<!-- 3.2.7 gibi daha eski ve stabil bir sürümü deneyebilirsiniz. -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.3.0</version>
+		<relativePath/> <!-- Maven'ın parent POM'u yerel depoda aramasını sağlar -->
+	</parent>
+
+	<groupId>com.example</groupId>
+	<artifactId>demo</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>nodora</name>
+	<description>nodora</description>
+
+	<properties>
+		<java.version>21</java.version> <!-- Kullanılan Java sürümü -->
+	</properties>
+
+	<dependencies>
+		<!-- Spring Boot Data JPA Starter: JPA (Java Persistence API) ve Hibernate için gerekli bağımlılıkları sağlar. -->
+		<!-- Veritabanı ile etkileşim kurmak için kullanılır. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<!-- Spring Boot Data REST Starter: JPA varlıkları üzerinden RESTful API'ler oluşturmayı kolaylaştırır. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
+
+		<!-- Spring Boot Security Starter: Uygulamanıza güvenlik (kimlik doğrulama, yetkilendirme) ekler. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<!-- Spring Boot Web Starter: Web uygulamaları (RESTful servisler, MVC) oluşturmak için gerekli bağımlılıkları sağlar. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!-- Spring Boot DevTools: Geliştirme sırasında hızlı yeniden yükleme ve diğer kolaylıklar sağlar. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- PostgreSQL JDBC Sürücüsü: PostgreSQL veritabanına bağlanmak için gereklidir. -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Lombok: Boilerplate kodu (getter, setter, constructor vb.) azaltmak için kullanılır. -->
+		<!-- Sadece derleme zamanında gerekli olduğu için 'optional' olarak işaretlenir. -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- Spring Boot Test Starter: Spring Boot uygulamalarını test etmek için gerekli bağımlılıkları sağlar. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Spring Security Test: Güvenlik yapılandırmalarını test etmek için yardımcı araçlar sağlar. -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- Maven Compiler Plugin: Java kaynak kodunu derlemek için kullanılır. -->
+			<!-- Lombok'un anotasyon işlemcisini derleme yoluna ekler. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+
+			<!-- Spring Boot Maven Plugin: Spring Boot uygulamasını çalıştırılabilir JAR olarak paketler. -->
+			<!-- Lombok'u final JAR'dan hariç tutar (zaten derleme zamanında işini bitirmiştir). -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
